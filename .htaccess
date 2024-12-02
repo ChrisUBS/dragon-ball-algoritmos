@@ -1,0 +1,12 @@
+RewriteEngine On
+
+# No permitir acceso al explorador de carpetas
+Options -Indexes
+
+# Ocultar extensión .html
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^/]+)$ $1.html [L]
+
+# Ocultar extensión .php
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^/]+)$ $1.php [L]
