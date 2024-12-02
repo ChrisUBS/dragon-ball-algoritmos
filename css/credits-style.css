@@ -14,13 +14,6 @@ img {
     max-width: 100%;
 }
 
-/* Utilities */
-.container {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 /* Navbar */
 .navbar {
     background-image: url(../img/header.jpg);
