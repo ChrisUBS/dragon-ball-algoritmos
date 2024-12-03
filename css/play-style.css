@@ -131,3 +131,71 @@ main {
 .btn-play:hover {
     background-color: #e68a00;
 }
+
+/* Estilo del Modal tipo Dragon Ball */
+#filterModal .modal-content {
+    background-color: #f5d742; /* Amarillo Dragon Ball */
+    border: 3px solid #ff9900; /* Borde naranja */
+    border-radius: 15px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); /* Sombra para dar efecto de elevación */
+}
+
+#filterModal .modal-header {
+    background-color: #ff9900; /* Naranja */
+    color: #fff; /* Blanco para el título */
+    border-bottom: 3px solid #ffcc00; /* Amarillo más claro para el borde */
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#filterModal .modal-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #004d99; /* Azul oscuro para el título */
+}
+
+#filterModal .modal-header .btn-close {
+    color: white;
+    /* background-color: #004d99; */
+    border-radius: 50%;
+    opacity: 1;
+}
+
+#filterModal .modal-body {
+    background-color: #f5d742; /* Amarillo Dragon Ball */
+    padding: 20px;
+}
+
+#filterModal .btn {
+    background-color: #ff9900; /* Naranja clásico */
+    color: #ffffff; /* Blanco para el texto */
+    font-weight: bold;
+    margin: 10px 5px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid #004d99; /* Borde azul */
+    transition: transform 0.1s ease, box-shadow 0.1s ease; /* Animación */
+}
+
+#filterModal .btn:hover {
+    background-color: #e68a00; /* Oscurecer el naranja al hacer hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra adicional en hover */
+    transform: translateY(-3px); /* Levantar el botón ligeramente */
+}
+
+/* Botón de filtro (cambiando el estilo para que se asemeje más a Dragon Ball) */
+.btn-filter {
+    color: white;
+    background-color: #ff9900; /* Naranja brillante */
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 1.2rem;
+    transition: transform 0.1s ease;
+}
+
+.btn-filter:hover {
+    color: black;
+    background-color: #e68a00;
+    transform: scale(1.1);
+}
