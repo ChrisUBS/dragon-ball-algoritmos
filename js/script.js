@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("btn-reload").addEventListener("click", function() {
         location.reload();
     });
+    // Desactivar el botón de play hasta que se coloque la esfera
+    document.getElementById("btn-play").disabled = true;
 });
 
 // Constantes para las imágenes
@@ -11,8 +13,11 @@ const imageUrls = {
     1: 'img/pared.png', // Imagen para celdas con valor 1
     2: 'img/coin.gif', // Imagen para celdas con valor 2
     3: 'img/enemigo.png',  // Imagen para celdas con valor 3
-    4: 'img/goku.png'  // Imagen para la celda principal
+    4: 'img/goku.png',  // Imagen para Goku (celda inicial)
+    5: 'img/esfera-logo.png'  // Imagen para la esfera del dragón
 };
+
+let dragonBallPosition = null; // Constante para almacenar la posición de la esfera del dragón
 
 // Función para generar un laberinto aleatorio con DFS (matrix de 0s y 1s)
 function generateMaze(rows, cols) {
@@ -113,8 +118,15 @@ function drawMatrix(matrix) {
                 overlay.className = `overlay-image value-${value}`;
                 overlay.style.backgroundImage = `url(${imageUrls[value]})`;
                 cell.appendChild(overlay);
+            } else {
+                if(!(i == 0 && j == 0)) {
+                    // Hacer la celda un botón si es un espacio libre (valor 0)
+                    cell.addEventListener("click", function() {
+                        placeDragonBall(i, j);
+                    });
+                    cell.className = "clickable-cell"; // Añadir clase para indicar que es clickable
+                }
             }
-
             row.appendChild(cell);
         }
         table.appendChild(row);
@@ -127,9 +139,30 @@ function drawMatrix(matrix) {
     table.rows[0].cells[0].appendChild(overlay);
 }
 
+// Función para colocar la esfera del dragón en la celda seleccionada
+function placeDragonBall(row, col) {
+    if (dragonBallPosition) {
+        // Si ya hay una esfera, removerla
+        const [prevRow, prevCol] = dragonBallPosition;
+        const prevCell = document.getElementById("matrixTable").rows[prevRow].cells[prevCol];
+        prevCell.removeChild(prevCell.querySelector(".overlay-image.esfera"));
+    }
+
+    // Actualizar la nueva posición de la esfera
+    dragonBallPosition = [row, col];
+
+    // Activar el botón de play
+    document.getElementById("btn-play").disabled = false;
+
+    // Añadir la imagen de la esfera del dragón
+    const overlay = document.createElement("div");
+    overlay.className = "overlay-image esfera";
+    overlay.style.backgroundImage = `url(${imageUrls[5]})`;
+    document.getElementById("matrixTable").rows[row].cells[col].appendChild(overlay);
+}
+
 // Crear la matrix
 const matrix = generateMaze(7, 7);
-// console.log(matrix);
 
 // Agregar valores aleatorios (2s y 3s), con un máximo de 5 y 3, respectivamente
 addRandomValues(matrix, 5, 3);
