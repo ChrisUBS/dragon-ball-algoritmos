@@ -14,14 +14,17 @@ const imageUrls = {
     2: 'img/coin.gif', // Imagen para celdas con valor 2
     3: 'img/enemigo.png',  // Imagen para celdas con valor 3
     4: 'img/goku.png',  // Imagen para Goku (celda inicial)
-    5: 'img/esfera-logo.png'  // Imagen para la esfera del dragón
+    5: 'img/esfera-logo.png',  // Imagen para la esfera del dragón
+    6: 'img/pasto-pisado.png' // Imagen para celdas visitadas
 };
 
 // Variable para saber si el juego está en progreso
 let isRunning = false;
 
 // Variable para guardar las coordenadas para llegar a la esfera del dragón
-let path = null;
+let path1 = null;
+let path2 = null;
+let path3 = null;
 
 // Variable para guardar la posición de la esfera del dragón
 let dragonBallPosition = null;
@@ -162,9 +165,11 @@ function placeDragonBall(row, col) {
     // Guardar la nueva posición de la esfera
     dragonBallPosition = [row, col];
 
-    // Mandar a llamar al algorithmo A* para encontrar la mejor ruta
-    path = searchA(matrixCopy,[0,0],[row,col]);
-
+    // Mandar a llamar los algoritmos
+    path1 = searchA(matrixCopy,[0,0],[row,col]);
+    path2 = searchA(matrixCopy,[0,0],[row,col]);
+    path3 = searchA(matrixCopy,[0,0],[row,col]);
+    
     // Recargar tabla con la nueva ruta
     reloadTable();
 

@@ -95,11 +95,15 @@ function reloadTable() {
     const tbody = document.querySelector('.optimal-path-container table tbody');
     tbody.innerHTML = '';
 
-    // Obtener los datos de la ruta actual
-    const currentPathStats = countPathStats(path, matrix);
-    addTableRow(...currentPathStats);
+    // Obtener los datos de la ruta actual de los 3 paths
+    const currentPath1Stats = countPathStats(path1, matrix);
+    // const currentPath2Stats = countPathStats(path2, matrix);
+    const currentPath2Stats = [1,2,3];
+    // const currentPath3Stats = countPathStats(path3, matrix);
+    const currentPath3Stats = [4,5,6];
 
-    // Ejemplo de cómo usar la función
-    addTableRow(26, 20, 2);
-    addTableRow(30, 8, 4);
+    // Agregar las filas a la tabla
+    addTableRow(...currentPath1Stats);
+    addTableRow(...currentPath2Stats);
+    addTableRow(...currentPath3Stats);
 }

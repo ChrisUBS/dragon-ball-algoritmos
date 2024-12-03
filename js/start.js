@@ -57,6 +57,7 @@ function animatePath(path, matrix) {
         if (currentIndex === path.length) {
             setTimeout(() => {
                 isRunning = false;
+                document.getElementById("btn-play").disabled = false;
             }, 200);
         }
     }
@@ -82,10 +83,24 @@ document.addEventListener("DOMContentLoaded", function() {
         overlay.style.backgroundImage = `url(${imageUrls[5]})`;
         cell.appendChild(overlay);
 
+        // Path a seguir
+        let pathGame = null;
+    
+        // Obtener la opción seleccionada
+        const option = document.querySelector('input[name="optimalPath"]:checked').value;
+        if(option === "1") {
+            pathGame = path1;
+        } else if(option === "2") {
+            pathGame = path2;
+        }
+        else if(option === "3") {
+            pathGame = path3;
+        }
+
         // Iniciar la animación
         isRunning = true;
-        if (path && matrix) {
-            animatePath(path, matrix);
+        if (pathGame && matrix) {
+            animatePath(pathGame, matrix);
         }
     });
 });
