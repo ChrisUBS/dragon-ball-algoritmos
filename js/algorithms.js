@@ -3,7 +3,6 @@ function arraysEqual(a, b) {
 }
 
 function searchA(gameMap,start,goal) {
-
     const path = astar(gameMap, start, goal);
 
     if (path.length > 0) {

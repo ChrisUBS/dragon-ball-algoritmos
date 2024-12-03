@@ -17,7 +17,11 @@ const imageUrls = {
     5: 'img/esfera-logo.png'  // Imagen para la esfera del dragón
 };
 
-let dragonBallPosition = null; // Constante para almacenar la posición de la esfera del dragón
+// Variable para guardar las coordenadas para llegar a la esfera del dragón
+let path = null;
+
+// Variable para guardar la posición de la esfera del dragón
+let dragonBallPosition = null;
 
 // Función para generar un laberinto aleatorio con DFS (matrix de 0s y 1s)
 function generateMaze(rows, cols) {
@@ -148,8 +152,12 @@ function placeDragonBall(row, col) {
         prevCell.removeChild(prevCell.querySelector(".overlay-image.esfera"));
     }
 
-    // Actualizar la nueva posición de la esfera
+    // Guardar la nueva posición de la esfera
     dragonBallPosition = [row, col];
+
+    // Mandar a llamar al algorithmo A* para encontrar la mejor ruta
+    path = searchA(matrixCopy,[0,0],[row,col]);
+    console.log(path);
 
     // Activar el botón de play
     document.getElementById("btn-play").disabled = false;
@@ -164,9 +172,8 @@ function placeDragonBall(row, col) {
 // Crear la matrix
 const matrix = generateMaze(7, 7);
 
-//Aplicacion del algoritmo A* dentro del mapa para generar la mejor ruta posible
-const result = searchA(matrix,[0,0],[6,6]);
-console.log(result);
+// Crear una copia de la matriz para usarla con el algoritmo A*
+const matrixCopy = matrix.map(row => [...row]);
 
 // Agregar valores aleatorios (2s y 3s), con un máximo de 5 y 3, respectivamente
 addRandomValues(matrix, 5, 3);
