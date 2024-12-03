@@ -1,13 +1,14 @@
 /* General */
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #f5f5f5;
-    color: black;
-    height: 100%; /* Necesario para usar flex en todo el contenedor */
+    height: 100%;
+    /* Necesario para usar flex en todo el contenedor */
     display: flex;
     flex-direction: column;
+    /* Fondo */
     background-image: url(../img/main.jpg);
     background-position: center;
     background-size: cover;
@@ -18,21 +19,7 @@ img {
     max-width: 100%;
 }
 
-/* Utilities */
-.container {
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 /* Navbar */
-.navbar {
-    /* background-image: url(../img/header.jpg);
-    background-position: center 10%;
-    background-size: cover; */
-    color: white;
-}
-
 .brand-logo {
     width: 80px;
     height: auto;
@@ -47,9 +34,7 @@ img {
     display: inline-block;
     color: white;
     background-color: #ff9900;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin: 10px 10px 10px;
     padding: 5px 10px;
     border-radius: 20px;
     font-weight: bold;
@@ -67,59 +52,49 @@ img {
 
 /* Main */
 main {
-    flex: 1; /* El main tomará todo el espacio disponible */
-    /* background-image: url(../img/main.jpg);
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed; */
+    flex: 1;
     display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centrar el contenido verticalmente */
-    align-items: center; /* Centrar el contenido horizontalmente */
-    padding: 20px;
-}
-
-.main-content {
-    text-align: center;
-    color: black;
-    display: flex;
-    flex-direction: column;
+    justify-content: center;
+    /* Centrar el contenido verticalmente */
     align-items: center;
+    /* Centrar el contenido horizontalmente */
 }
 
-.main-heading {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
+.matrix-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 5px solid #ff9900;
 }
 
-.main-text {
-    font-size: 2rem;
-    margin-bottom: 30px;
+.matrix-table {
+    border-collapse: collapse;
 }
 
-.btn-dragonball {
-    background-color: #ff6600;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 2rem;
-    border-radius: 10px;
-    text-transform: uppercase;
-    transition: background-color 0.3s, transform 0.2s;
-    width: 80%;
-    max-width: 400px;
-    text-align: center;
-    margin: 10px auto;
+.matrix-table td {
+    width: 50px;
+    height: 50px;
+    /* border: 1px solid black; */
+    background-size: cover;
+    position: relative;
 }
 
-.btn-dragonball:hover {
-    background-color: #cc5200;
-    transform: scale(1.05);
+.overlay-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
 }
 
-main img {
-    margin-top: 20px;
+.overlay-image.value-2 {
+    transform: scale(0.5); /* Agrandar imagen del valor 2 */
+}
+
+.overlay-image.value-3 {
+    transform: scale(1.2); /* Encoger imagen del valor 3 */
 }
 
 /* Footer */
