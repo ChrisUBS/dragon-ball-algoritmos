@@ -4,8 +4,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', sans-serif;
-    height: 100%;
-    /* Necesario para usar flex en todo el contenedor */
+    height: 100%; /* Necesario para usar flex en todo el contenedor */
     display: flex;
     flex-direction: column;
     /* Fondo */
@@ -54,10 +53,15 @@ img {
 main {
     flex: 1;
     display: flex;
-    justify-content: center;
-    /* Centrar el contenido verticalmente */
-    align-items: center;
-    /* Centrar el contenido horizontalmente */
+    justify-content: center; /* Centrar el contenido verticalmente */
+    align-items: center; /* Centrar el contenido horizontalmente */
+}
+
+.optimal-path-container {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .matrix-container {
@@ -90,16 +94,40 @@ main {
 }
 
 .overlay-image.value-2 {
-    transform: scale(0.5); /* Agrandar imagen del valor 2 */
+    transform: scale(0.5);
 }
 
 .overlay-image.value-3 {
-    transform: scale(1.2); /* Encoger imagen del valor 3 */
+    transform: scale(1.2);
 }
 
-/* Footer */
-.footer {
-    height: 50px;
+.overlay-image.goku {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%) scale(0.5); /* Centrar y escalar la imagen */
+    background-size: contain; /* Asegurarse de que la imagen mantenga sus proporciones */
+    background-repeat: no-repeat; /* Evitar que la imagen se repita */
+}
+
+.btn-reload {
     background-color: #ff9900;
-    text-align: center;
+    color: white;
+    border-radius: 10px;
+    transition: background-color 0.1s ease;
+}
+
+.btn-reload:hover {
+    background-color: #e68a00;
+}
+
+.btn-play {
+    background-color: #ff9900;
+    color: white;
+    border-radius: 10px;
+    transition: background-color 0.1s ease;
+}
+
+.btn-play:hover {
+    background-color: #e68a00;
 }

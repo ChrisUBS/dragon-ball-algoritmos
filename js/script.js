@@ -1,37 +1,20 @@
+// Funciones para el botón de recargar
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("btn-reload").addEventListener("click", function() {
+        location.reload();
+    });
+});
+
+// Constantes para las imágenes
 const imageUrls = {
     0: 'img/pasto.jpg', // Imagen de fondo para celdas con valor 0
     1: 'img/pared.png', // Imagen para celdas con valor 1
     2: 'img/coin.gif', // Imagen para celdas con valor 2
-    3: 'img/enemigo.png'  // Imagen para celdas con valor 3
+    3: 'img/enemigo.png',  // Imagen para celdas con valor 3
+    4: 'img/goku.png'  // Imagen para la celda principal
 };
 
-function drawMatrix(matrix) {
-    const table = document.getElementById("matrixTable");
-    table.innerHTML = "";
-
-    for (let i = 0; i < matrix.length; i++) {
-        const row = document.createElement("tr");
-        for (let j = 0; j < matrix[i].length; j++) {
-            const cell = document.createElement("td");
-            const value = matrix[i][j];
-
-            // Asignar la imagen de fondo según el valor 0
-            cell.style.backgroundImage = `url(${imageUrls[0]})`;
-
-            // Crear una imagen superpuesta si el valor es 1, 2, o 3
-            if (value !== 0) {
-                const overlay = document.createElement("div");
-                overlay.className = `overlay-image value-${value}`;
-                overlay.style.backgroundImage = `url(${imageUrls[value]})`;
-                cell.appendChild(overlay);
-            }
-
-            row.appendChild(cell);
-        }
-        table.appendChild(row);
-    }
-}
-
+// Función para generar un laberinto aleatorio con DFS (matrix de 0s y 1s)
 function generateMaze(rows, cols) {
     // Inicializar matriz con todos los valores en 1 (obstáculos)
     const matrix = Array.from({ length: rows }, () => Array(cols).fill(1));
@@ -72,13 +55,11 @@ function generateMaze(rows, cols) {
     
     // Iniciar DFS desde la esquina superior izquierda
     dfs(0, 0);
-
-    // La esquina inferior derecha debe ser un espacio vacío
-    matrix[rows - 1][cols - 1] = 0;
     
     return matrix;
 }
 
+// Función para agregar valores aleatorios a la matriz (2s y 3s)
 function addRandomValues(matrix, maxTwos, maxThrees) {
     // Encuentra las posiciones de los ceros
     let zeroPositions = [];
@@ -112,11 +93,45 @@ function addRandomValues(matrix, maxTwos, maxThrees) {
     }
 }
 
+// Función para dibujar la matriz en la tabla HTML
+function drawMatrix(matrix) {
+    const table = document.getElementById("matrixTable");
+    table.innerHTML = "";
+
+    for (let i = 0; i < matrix.length; i++) {
+        const row = document.createElement("tr");
+        for (let j = 0; j < matrix[i].length; j++) {
+            const cell = document.createElement("td");
+            const value = matrix[i][j];
+
+            // Asignar la imagen de fondo según el valor 0
+            cell.style.backgroundImage = `url(${imageUrls[0]})`;
+
+            // Crear una imagen superpuesta si el valor es 1, 2, o 3
+            if (value !== 0) {
+                const overlay = document.createElement("div");
+                overlay.className = `overlay-image value-${value}`;
+                overlay.style.backgroundImage = `url(${imageUrls[value]})`;
+                cell.appendChild(overlay);
+            }
+
+            row.appendChild(cell);
+        }
+        table.appendChild(row);
+    }
+    
+    // Posicionar a Goku en la celda principal
+    const overlay = document.createElement("div");
+    overlay.className = "overlay-image goku";
+    overlay.style.backgroundImage = `url(${imageUrls[4]})`;
+    table.rows[0].cells[0].appendChild(overlay);
+}
+
 // Crear la matrix
 const matrix = generateMaze(7, 7);
-console.log(matrix);
+// console.log(matrix);
 
-// Agregar valores aleatorios
+// Agregar valores aleatorios (2s y 3s), con un máximo de 5 y 3, respectivamente
 addRandomValues(matrix, 5, 3);
 
 // Dibujar la matriz
