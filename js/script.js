@@ -164,6 +164,10 @@ function placeDragonBall(row, col) {
 // Crear la matrix
 const matrix = generateMaze(7, 7);
 
+//Aplicacion del algoritmo A* dentro del mapa para generar la mejor ruta posible
+const result = searchA(matrix,[0,0],[6,6]);
+console.log(result);
+
 // Agregar valores aleatorios (2s y 3s), con un máximo de 5 y 3, respectivamente
 addRandomValues(matrix, 5, 3);
 
