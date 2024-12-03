@@ -71,7 +71,35 @@ document.getElementById('sortEnemies').addEventListener('click', function() {
     sortTable(4); // Columna de Enemigos
 });
 
-// Ejemplo de cómo usar la función
-addTableRow(20, 10, 5);
-addTableRow(26, 20, 3);
-addTableRow(30, 8, 4);
+// Función para contabilizar distancia, monedas y enemigos
+function countPathStats(path, matrix) {
+    let coinsCollected = 0;
+    let enemiesEncountered = 0;
+    let pathLength = path.length - 1;
+
+    for (let i = 0; i < path.length; i++) {
+        const [currentRow, currentCol] = path[i];
+
+        // Revisar si la celda tiene un enemigo (3) o una moneda (2)
+        if (matrix[currentRow][currentCol] === 2) {
+            coinsCollected++;
+        } else if (matrix[currentRow][currentCol] === 3) {
+            enemiesEncountered++;
+        }
+    }
+
+    return [pathLength, coinsCollected, enemiesEncountered];
+}
+
+function reloadTable() {
+    const tbody = document.querySelector('.optimal-path-container table tbody');
+    tbody.innerHTML = '';
+
+    // Obtener los datos de la ruta actual
+    const currentPathStats = countPathStats(path, matrix);
+    addTableRow(...currentPathStats);
+
+    // Ejemplo de cómo usar la función
+    addTableRow(26, 20, 2);
+    addTableRow(30, 8, 4);
+}

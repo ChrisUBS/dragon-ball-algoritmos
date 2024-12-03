@@ -17,6 +17,9 @@ const imageUrls = {
     5: 'img/esfera-logo.png'  // Imagen para la esfera del dragón
 };
 
+// Variable para saber si el juego está en progreso
+let isRunning = false;
+
 // Variable para guardar las coordenadas para llegar a la esfera del dragón
 let path = null;
 
@@ -123,13 +126,11 @@ function drawMatrix(matrix) {
                 overlay.style.backgroundImage = `url(${imageUrls[value]})`;
                 cell.appendChild(overlay);
             } else {
-                if(!(i == 0 && j == 0)) {
-                    // Hacer la celda un botón si es un espacio libre (valor 0)
-                    cell.addEventListener("click", function() {
-                        placeDragonBall(i, j);
-                    });
-                    cell.className = "clickable-cell"; // Añadir clase para indicar que es clickable
-                }
+                // Hacer la celda un botón si es un espacio libre (valor 0)
+                cell.addEventListener("click", function() {
+                    placeDragonBall(i, j);
+                });
+                cell.className = "clickable-cell"; // Añadir clase para indicar que es clickable
             }
             row.appendChild(cell);
         }
@@ -145,6 +146,12 @@ function drawMatrix(matrix) {
 
 // Función para colocar la esfera del dragón en la celda seleccionada
 function placeDragonBall(row, col) {
+
+    // Si el juego ya está en progreso, no hacer nada
+    if(isRunning == true) {
+        return;
+    }
+
     if (dragonBallPosition) {
         // Si ya hay una esfera, removerla
         const [prevRow, prevCol] = dragonBallPosition;
@@ -157,7 +164,9 @@ function placeDragonBall(row, col) {
 
     // Mandar a llamar al algorithmo A* para encontrar la mejor ruta
     path = searchA(matrixCopy,[0,0],[row,col]);
-    console.log(path);
+
+    // Recargar tabla con la nueva ruta
+    reloadTable();
 
     // Activar el botón de play
     document.getElementById("btn-play").disabled = false;
@@ -176,7 +185,7 @@ const matrix = generateMaze(7, 7);
 const matrixCopy = matrix.map(row => [...row]);
 
 // Agregar valores aleatorios (2s y 3s), con un máximo de 5 y 3, respectivamente
-addRandomValues(matrix, 5, 3);
+addRandomValues(matrix, 7, 5);
 
 // Dibujar la matriz
 drawMatrix(matrix);
