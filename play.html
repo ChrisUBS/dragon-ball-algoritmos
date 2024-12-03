@@ -2,22 +2,22 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dragon Ball Algoritmos - Juego</title>
-    <link rel="icon" type="image/png" href="img/esfera-logo.png">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-    <link href="css/play-style.css" rel="stylesheet" />
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Dragon Ball Algoritmos - Juego</title>
+	<link rel="icon" type="image/png" href="img/esfera-logo.png">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+	<link href="css/play-style.css" rel="stylesheet" />
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light">
+	<nav class="navbar navbar-expand-lg navbar-light">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="./">
-                <img src="img/esfera-logo.png" alt="Esfera Logo" class="brand-logo" />
+				<img src="img/esfera-logo.png" alt="Esfera Logo" class="brand-logo" />
 			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,11 +39,13 @@
 		</div>
 	</nav>
 
-    <main class="main-content">
+	<main class="main-content">
 		<div class="d-flex flex-column flex-lg-row justify-content-center align-items-center flex-wrap">
 			<div class="optimal-path-container text-center">
-				<h3>Camino óptimo 
-					<button class="btn btn-link p-0"><i class="bi bi-funnel"></i></button>
+				<h3>Camino óptimo
+					<button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#filterModal">
+						<i class="bi bi-funnel"></i>
+					</button>
 				</h3>
 				<table class="table table-bordered table-striped">
 					<thead>
@@ -56,27 +58,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td><input type="radio" name="optimalPath" value="1"></td>
-							<td>1</td>
-							<td>15</td>
-							<td>10</td>
-							<td>2</td>
-						</tr>
-						<tr>
-							<td><input type="radio" name="optimalPath" value="2"></td>
-							<td>2</td>
-							<td>18</td>
-							<td>12</td>
-							<td>3</td>
-						</tr>
-						<tr>
-							<td><input type="radio" name="optimalPath" value="3"></td>
-							<td>3</td>
-							<td>13</td>
-							<td>7</td>
-							<td>3</td>
-						</tr>
+						<!-- Aquí se agregarán dinamicamente -->
 					</tbody>
 				</table>
 			</div>
@@ -95,11 +77,29 @@
 			</div>
 		</div>
 	</main>
-	
-    <!-- Scripts -->
+
+	<!-- Modal para ordenar las filas -->
+	<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="filterModalLabel">Ordenar por</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body text-center">
+					<button id="sortDistance" class="btn btn-primary m-2" data-bs-dismiss="modal">Distancia</button>
+					<button id="sortCoins" class="btn btn-primary m-2" data-bs-dismiss="modal">Monedas</button>
+					<button id="sortEnemies" class="btn btn-primary m-2" data-bs-dismiss="modal">Enemigos</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Scripts -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="js/script.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/control.js"></script>
 
 </body>
 
