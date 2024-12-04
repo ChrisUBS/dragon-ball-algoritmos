@@ -175,6 +175,14 @@ function placeDragonBall(row, col) {
     path2 = searchA(matrixCopy,[0,0],[row,col]);
     path3 = searchA(matrixCopy,[0,0],[row,col]);
     
+    // if (path[path.length]!=dragonBallPosition) {
+    //     console.log("Estan en diferente posicion");
+    //     searchA(matrixCopy,path[path.length-1],dragonBallPosition).forEach(coordenada => {
+    //         path.push(coordenada);
+    //     });
+    // }
+
+    
     // Recargar tabla con la nueva ruta
     reloadTable();
 

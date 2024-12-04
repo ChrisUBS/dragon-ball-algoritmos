@@ -116,3 +116,134 @@ function reconstruct_path(node) {
     }
     return path;
 }
+
+function tsp(matrix,dragonBallPosition) {
+    const start = [0, 0]; // Definimos el punto de inicio fijo
+    const coins = findCoins(matrix,dragonBallPosition);
+
+    if (coins.length === 0) return { distance: 0, path: [start] };
+
+    // Puntos a visitar: punto inicial y monedas
+    const points = [start, ...coins];
+    const n = points.length;
+
+    // Precalcular distancias y caminos entre todos los puntos
+    const dist = Array.from({ length: n }, () => Array(n).fill(0));
+    const paths = Array.from({ length: n }, () => Array(n).fill([]));
+
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+            if (i !== j) {
+                const result = bfsPath(points[i], points[j], matrix);
+                dist[i][j] = result.distance;
+                paths[i][j] = result.path;
+            }
+        }
+    }
+
+    // Held-Karp TSP para resolver el problema
+    const dp = Array.from({ length: 1 << n }, () => Array(n).fill(Infinity));
+    const parent = Array.from({ length: 1 << n }, () => Array(n).fill(-1));
+
+    dp[1][0] = 0; // Inicia desde el punto inicial
+
+    for (let mask = 1; mask < (1 << n); mask++) {
+        for (let u = 0; u < n; u++) {
+            if (!(mask & (1 << u))) continue; // Si el nodo u no está en el subconjunto
+            for (let v = 0; v < n; v++) {
+                if (mask & (1 << v) || u === v) continue; // Si el nodo v ya está visitado
+                const newDist = dp[mask][u] + dist[u][v];
+                if (newDist < dp[mask | (1 << v)][v]) {
+                    dp[mask | (1 << v)][v] = newDist;
+                    parent[mask | (1 << v)][v] = u;
+                }
+            }
+        }
+    }
+
+    // Reconstruir la ruta mínima
+    let minDistance = Infinity;
+    let lastNode = -1;
+    const fullMask = (1 << n) - 1;
+
+    for (let i = 1; i < n; i++) {
+        if (dp[fullMask][i] < minDistance) {
+            minDistance = dp[fullMask][i];
+            lastNode = i;
+        }
+    }
+
+    // Reconstruir el camino en orden
+    let currentMask = fullMask;
+    const order = [];
+    while (lastNode !== -1) {
+        order.push(lastNode);
+        const prevNode = parent[currentMask][lastNode];
+        currentMask ^= 1 << lastNode;
+        lastNode = prevNode;
+    }
+    order.reverse();
+
+    // Construir las coordenadas del camino
+    let finalPath = [];
+    let currentPoint = 0; // Comienza desde el punto inicial
+    const visited = new Set(); // Set para almacenar coordenadas ya visitadas
+    visited.add(currentPoint);
+
+    for (const nextPoint of order) {
+        const pathSegment = paths[currentPoint][nextPoint];
+        for (const coord of pathSegment) {
+            if (!visited.has(coord.toString())) {
+                finalPath.push(coord);
+                visited.add(coord.toString());
+                if (arraysEqual(coord, dragonBallPosition)) {
+                    return { distance: minDistance, path: finalPath };
+                }
+            }
+        }
+        currentPoint = nextPoint;
+    }
+
+    return { distance: minDistance, path: finalPath };
+}
+
+function findCoins(matrix) {
+    const coins = [];
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[i].length; j++) {
+            if (matrix[i][j] === 2) coins.push([i, j]);
+        }
+    }
+    return coins;
+}
+
+function bfsPath(start, end, matrix) {
+    const directions = [
+        [0, 1], [1, 0], [0, -1], [-1, 0]
+    ];
+    const queue = [[...start, 0, [start]]];
+    const visited = new Set();
+    visited.add(start.toString());
+
+    while (queue.length > 0) {
+        const [x, y, dist, path] = queue.shift();
+        if (x === end[0] && y === end[1]) return { distance: dist, path };
+
+        for (const [dx, dy] of directions) {
+            const nx = x + dx;
+            const ny = y + dy;
+
+            if (
+                nx >= 0 && ny >= 0 &&
+                nx < matrix.length && ny < matrix[0].length &&
+                matrix[nx][ny] !== 1 &&
+                !visited.has([nx, ny].toString())
+            ) {
+                visited.add([nx, ny].toString());
+                queue.push([nx, ny, dist + 1, [...path, [nx, ny]]]);
+            }
+        }
+    }
+
+    return { distance: Infinity, path: [] };
+}
