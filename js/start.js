@@ -1,5 +1,6 @@
 // Función para animar el movimiento de Goku siguiendo el camino (path)
 function animatePath(path, matrix) {
+    let matrixCopy = matrix.map(row => row.slice()); // Copiar la matriz para no modificar la original
     const table = document.getElementById("matrixTable");
     let currentIndex = 0;
 
@@ -38,7 +39,7 @@ function animatePath(path, matrix) {
         // sound.play();
 
         // Revisar si la celda tiene un enemigo (3) o una moneda (2)
-        if (matrix[currentRow][currentCol] === 2) {
+        if (matrixCopy[currentRow][currentCol] === 2) {
             // Reproducir sonido
             const sound = new Audio('sounds/coin.mp3');
             sound.play();
@@ -48,7 +49,11 @@ function animatePath(path, matrix) {
             if (coinElement) {
                 cell.removeChild(coinElement);
             }
-        } else if (matrix[currentRow][currentCol] === 3) {
+
+            // Actualizar la matriz
+            matrixCopy[currentRow][currentCol] = 0;
+
+        } else if (matrixCopy[currentRow][currentCol] === 3) {
             // Reproducir sonido
             const sound = new Audio('sounds/enemy.mp3');
             sound.play();
@@ -58,6 +63,9 @@ function animatePath(path, matrix) {
             if (enemyElement) {
                 cell.removeChild(enemyElement);
             }
+
+            // Actualizar la matriz
+            matrixCopy[currentRow][currentCol] = 0;
         }
 
         // Avanzar al siguiente índice después de un pequeño retardo

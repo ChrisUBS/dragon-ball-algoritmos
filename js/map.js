@@ -172,16 +172,15 @@ function placeDragonBall(row, col) {
 
     // Mandar a llamar los algoritmos
     path1 = searchA(matrixCopy,[0,0],[row,col]);
-    path2 = searchA(matrixCopy,[0,0],[row,col]);
+    path2 = tsp(matrix, dragonBallPosition).path;
     path3 = searchA(matrixCopy,[0,0],[row,col]);
     
-    // if (path[path.length]!=dragonBallPosition) {
-    //     console.log("Estan en diferente posicion");
-    //     searchA(matrixCopy,path[path.length-1],dragonBallPosition).forEach(coordenada => {
-    //         path.push(coordenada);
-    //     });
-    // }
-
+    // En caso de que no se pueda llegar a la esfera en el path2
+    if (path2[path2.length]!=dragonBallPosition) {
+        searchA(matrixCopy,path2[path2.length-1],dragonBallPosition).forEach(coordenada => {
+            path2.push(coordenada);
+        });
+    }
     
     // Recargar tabla con la nueva ruta
     reloadTable();

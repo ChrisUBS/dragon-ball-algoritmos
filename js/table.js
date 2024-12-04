@@ -73,6 +73,7 @@ document.getElementById('sortEnemies').addEventListener('click', function() {
 
 // Función para contabilizar distancia, monedas y enemigos
 function countPathStats(path, matrix) {
+    let matrixCopy = matrix.map(row => row.slice()); // Copiar la matriz para no modificar la original
     let coinsCollected = 0;
     let enemiesEncountered = 0;
     let pathLength = path.length - 1;
@@ -81,9 +82,11 @@ function countPathStats(path, matrix) {
         const [currentRow, currentCol] = path[i];
 
         // Revisar si la celda tiene un enemigo (3) o una moneda (2)
-        if (matrix[currentRow][currentCol] === 2) {
+        if (matrixCopy[currentRow][currentCol] === 2) {
+            matrixCopy[currentRow][currentCol] = 0; // Eliminar la moneda de la matriz
             coinsCollected++;
-        } else if (matrix[currentRow][currentCol] === 3) {
+        } else if (matrixCopy[currentRow][currentCol] === 3) {
+            matrixCopy[currentRow][currentCol] = 0; // Eliminar el enemigo de la matriz
             enemiesEncountered++;
         }
     }
@@ -97,10 +100,8 @@ function reloadTable() {
 
     // Obtener los datos de la ruta actual de los 3 paths
     const currentPath1Stats = countPathStats(path1, matrix);
-    // const currentPath2Stats = countPathStats(path2, matrix);
-    const currentPath2Stats = [1,2,3];
-    // const currentPath3Stats = countPathStats(path3, matrix);
-    const currentPath3Stats = [4,5,6];
+    const currentPath2Stats = countPathStats(path2, matrix);
+    const currentPath3Stats = countPathStats(path3, matrix);
 
     // Agregar las filas a la tabla
     addTableRow(...currentPath1Stats);
