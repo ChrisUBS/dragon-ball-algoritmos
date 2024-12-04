@@ -117,14 +117,14 @@ function reconstruct_path(node) {
     return path;
 }
 
-function tsp(matrix,dragonBallPosition) {
+function tsp(matrix,dragonBallPosition, item) {
     const start = [0, 0]; // Definimos el punto de inicio fijo
-    const coins = findCoins(matrix,dragonBallPosition);
+    const items = findSomething(matrix, item);
 
-    if (coins.length === 0) return { distance: 0, path: [start] };
+    if (items.length === 0) return { distance: 0, path: [start] };
 
     // Puntos a visitar: punto inicial y monedas
-    const points = [start, ...coins];
+    const points = [start, ...items];
     const n = points.length;
 
     // Precalcular distancias y caminos entre todos los puntos
@@ -207,14 +207,14 @@ function tsp(matrix,dragonBallPosition) {
     return { distance: minDistance, path: finalPath };
 }
 
-function findCoins(matrix) {
-    const coins = [];
+function findSomething(matrix, item) {
+    const items = [];
     for (let i = 0; i < matrix.length; i++) {
         for (let j = 0; j < matrix[i].length; j++) {
-            if (matrix[i][j] === 2) coins.push([i, j]);
+            if (matrix[i][j] === item) items.push([i, j]);
         }
     }
-    return coins;
+    return items;
 }
 
 function bfsPath(start, end, matrix) {

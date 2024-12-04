@@ -171,14 +171,21 @@ function placeDragonBall(row, col) {
     dragonBallPosition = [row, col];
 
     // Mandar a llamar los algoritmos
-    path1 = searchA(matrixCopy,[0,0],[row,col]);
-    path2 = tsp(matrix, dragonBallPosition).path;
-    path3 = searchA(matrixCopy,[0,0],[row,col]);
+    path1 = searchA(matrixCopy,[0,0],[row,col]); // Distancia mínima
+    path2 = tsp(matrix, dragonBallPosition, 2).path; // Obtener todas las monedas
+    path3 = tsp(matrix, dragonBallPosition, 3).path; // Obtener todos los enemigos
     
     // En caso de que no se pueda llegar a la esfera en el path2
     if (path2[path2.length]!=dragonBallPosition) {
         searchA(matrixCopy,path2[path2.length-1],dragonBallPosition).forEach(coordenada => {
             path2.push(coordenada);
+        });
+    }
+
+    // En caso de que no se pueda llegar a la esfera en el path3
+    if (path3[path3.length]!=dragonBallPosition) {
+        searchA(matrixCopy,path3[path3.length-1],dragonBallPosition).forEach(coordenada => {
+            path3.push(coordenada);
         });
     }
     
@@ -206,7 +213,7 @@ const matrix = generateMaze(7, 7);
 const matrixCopy = matrix.map(row => [...row]);
 
 // Agregar valores aleatorios (2s y 3s), con un máximo de 5 y 3, respectivamente
-addRandomValues(matrix, 7, 5);
+addRandomValues(matrix, 10, 6);
 
 // Dibujar la matriz
 drawMatrix(matrix);

@@ -50,7 +50,13 @@ function sortTable(columnIndex) {
     rows.sort((a, b) => {
         const aValue = parseInt(a.cells[columnIndex].textContent);
         const bValue = parseInt(b.cells[columnIndex].textContent);
-        return aValue - bValue;
+
+        // Si es la columna de Monedas (3) o Enemigos (4), invertir el orden
+        if (columnIndex === 3 || columnIndex === 4) {
+            return bValue - aValue; // Orden inverso para monedas y enemigos
+        } else {
+            return aValue - bValue; // Orden normal para las otras columnas
+        }
     });
 
     // Vaciar el tbody y volver a agregar las filas ordenadas
