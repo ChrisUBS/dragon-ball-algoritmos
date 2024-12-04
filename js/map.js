@@ -1,5 +1,10 @@
 // Funciones para el botón de recargar
 document.addEventListener("DOMContentLoaded", function() {
+    // Reproducir sonido en bucle
+    const sound = new Audio('sounds/background.mp3');
+    sound.loop = true; // Activar el bucle
+    sound.play();
+
     document.getElementById("btn-reload").addEventListener("click", function() {
         location.reload();
     });
@@ -181,6 +186,10 @@ function placeDragonBall(row, col) {
     overlay.className = "overlay-image esfera";
     overlay.style.backgroundImage = `url(${imageUrls[5]})`;
     document.getElementById("matrixTable").rows[row].cells[col].appendChild(overlay);
+
+    // Reproducir sonido
+    const sound = new Audio('sounds/put.mp3');
+    sound.play();
 }
 
 // Crear la matrix

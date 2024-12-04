@@ -26,7 +26,6 @@ function animatePath(path, matrix) {
             // Cambiar el fondo de la celda anterior a un color gris
             prevCell.style.backgroundImage = `url(img/pasto-pisado.png)`;
         }
-        
 
         // Posicionar a Goku en la nueva celda
         const overlay = document.createElement("div");
@@ -34,14 +33,26 @@ function animatePath(path, matrix) {
         overlay.style.backgroundImage = `url(${imageUrls[4]})`;
         cell.appendChild(overlay);
 
+        // Reproducir sonido
+        // const sound = new Audio('sounds/go.mp3');
+        // sound.play();
+
         // Revisar si la celda tiene un enemigo (3) o una moneda (2)
         if (matrix[currentRow][currentCol] === 2) {
+            // Reproducir sonido
+            const sound = new Audio('sounds/coin.mp3');
+            sound.play();
+
             // Remover la moneda
             const coinElement = cell.querySelector(".overlay-image.value-2");
             if (coinElement) {
                 cell.removeChild(coinElement);
             }
         } else if (matrix[currentRow][currentCol] === 3) {
+            // Reproducir sonido
+            const sound = new Audio('sounds/enemy.mp3');
+            sound.play();
+
             // Remover el enemigo
             const enemyElement = cell.querySelector(".overlay-image.value-3");
             if (enemyElement) {
@@ -55,6 +66,10 @@ function animatePath(path, matrix) {
 
         // Si llega al final que redibuje el mapa
         if (currentIndex === path.length) {
+            // Reproducir sonido
+            const sound = new Audio('sounds/win.mp3');
+            sound.play();
+
             setTimeout(() => {
                 isRunning = false;
                 document.getElementById("btn-play").disabled = false;
