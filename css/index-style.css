@@ -107,6 +107,26 @@ main {
     transform: scale(1.05);
 }
 
+.btn-manual {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 15px 0px;
+    font-size: 0.8rem;
+    border-radius: 10px;
+    text-transform: uppercase;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 30%;
+    max-width: 150px;
+    text-align: center;
+    margin: 10px auto;
+}
+
+.btn-manual:hover {
+    background-color: #cc5200;
+    transform: scale(1.05);
+}
+
 main img {
     margin-top: 20px;
 }
